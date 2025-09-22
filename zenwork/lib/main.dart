@@ -1,5 +1,7 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:zenwork/firebase_options.dart';
 
 import 'services/storage_service.dart';
 import 'utils/app_theme.dart';
@@ -16,10 +18,14 @@ import 'providers/app_providers.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  
+
   // Initialize storage
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   await StorageService.initialize();
-  
+
   runApp(const ProviderScope(child: ZenWorkApp()));
 }
 
@@ -29,7 +35,7 @@ class ZenWorkApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeMode = ref.watch(themeModeProvider);
-    
+
     return MaterialApp(
       title: AppConstants.appName,
       theme: AppTheme.lightTheme,
@@ -54,23 +60,23 @@ class ZenWorkApp extends ConsumerWidget {
 }
 
 class _RootRouter extends ConsumerWidget {
-  const _RootRouter({super.key});
+  const _RootRouter();
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final hasCompletedOnboarding = StorageService.getOnboardingCompleted();
     final isAuthenticated = AuthFlowManager.isAuthenticated;
-    
+
     // Check authentication first
     if (!isAuthenticated) {
       return LoginScreen();
     }
-    
+
     // Then check onboarding
     if (hasCompletedOnboarding) {
       return const MainNavigationScreen();
     }
-    
+
     return OnboardingScreen(
       onComplete: () async {
         await StorageService.saveOnboardingCompleted(true);
@@ -140,7 +146,8 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
             },
             type: BottomNavigationBarType.fixed,
             selectedItemColor: AppColors.primary,
-            unselectedItemColor: Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
+            unselectedItemColor:
+                Theme.of(context).colorScheme.onSurface.withOpacity(0.6),
             backgroundColor: Colors.transparent,
             elevation: 0,
             selectedLabelStyle: const TextStyle(

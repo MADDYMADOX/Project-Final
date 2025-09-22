@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'login_screen.dart';
-import 'signup_screen.dart';
-import 'forgot_password_screen.dart';
-import 'reset_password_screen.dart';
 
 /// Authentication router for handling navigation between auth screens
 class AuthRouter {
@@ -19,29 +16,7 @@ class AuthRouter {
           builder: (_) => LoginScreen(),
           settings: settings,
         );
-      
-      case signup:
-        return MaterialPageRoute(
-          builder: (_) => const SignUpScreen(),
-          settings: settings,
-        );
-      
-      case forgotPassword:
-        return MaterialPageRoute(
-          builder: (_) => const ForgotPasswordScreen(),
-          settings: settings,
-        );
-      
-      case resetPassword:
-        final args = settings.arguments as Map<String, dynamic>?;
-        return MaterialPageRoute(
-          builder: (_) => ResetPasswordScreen(
-            token: args?['token'] as String?,
-            email: args?['email'] as String?,
-          ),
-          settings: settings,
-        );
-      
+
       default:
         return MaterialPageRoute(
           builder: (_) => LoginScreen(),
@@ -105,7 +80,7 @@ class _AuthWrapperState extends State<AuthWrapper> {
     if (!widget.isAuthenticated) {
       return LoginScreen();
     }
-    
+
     return widget.child;
   }
 }

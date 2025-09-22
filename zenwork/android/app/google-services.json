@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "495084237890",
+    "project_id": "zenworkfinal",
+    "storage_bucket": "zenworkfinal.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:495084237890:android:64f0d469ba1b2d105729db",
+        "android_client_info": {
+          "package_name": "com.example.zenwork"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "495084237890-micvdgint998cbi5k3shv1n3p02k90kh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfZUVqFkiX7gg1J3rUUN5z-rdvFMRdt6U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "495084237890-micvdgint998cbi5k3shv1n3p02k90kh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
